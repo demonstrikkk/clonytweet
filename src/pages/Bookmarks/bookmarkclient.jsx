@@ -46,7 +46,7 @@ export default function BookmarkedPostsClient() {
 
     const fetchCollections = async () => {
       try {
-        const res = await fetch(`/api/posts/collections?userEmail=${email}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/collections?userEmail=${email}`);
         const data = await res.json();
         setCollections(data.collections || []);
         if (data.collections?.length === 1) {
@@ -74,7 +74,7 @@ export default function BookmarkedPostsClient() {
 
     const fetchCollections = async () => {
       try {
-        const res = await fetch(`/api/posts/collections?userEmail=${email}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/collections?userEmail=${email}`);
         const data = await res.json();
         setCollections(data.collections || []);
         if (data.collections?.length === 1) {
@@ -95,7 +95,7 @@ export default function BookmarkedPostsClient() {
     const fetchBookmarks = async () => {
       try {
         const res = await fetch(
-          `/api/posts/bookmarked?userEmail=${email}&collectionName=${activeCollection}`
+          `${import.meta.env.VITE_API_URL}/api/posts/bookmarked?userEmail=${email}&collectionName=${activeCollection}`
         );
         const data = await res.json();
         setPosts(data.posts || []);
@@ -115,7 +115,7 @@ export default function BookmarkedPostsClient() {
 
     const fetchUserInfo = async () => {
       try {
-        const res = await fetch(`/api/user/byEmail?email=${email}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/byEmail?email=${email}`);
         const data = await res.json();
         setUserInfo(data);
       } catch (error) {
@@ -133,7 +133,7 @@ export default function BookmarkedPostsClient() {
 
     try {
       const res = await fetch(
-        `/api/posts/deleteCollection?userEmail=${email}&collectionName=${collectionName}`,
+        `${import.meta.env.VITE_API_URL}/api/posts/deleteCollection?userEmail=${email}&collectionName=${collectionName}`,
         { method: "DELETE" }
       );
 
@@ -154,7 +154,7 @@ export default function BookmarkedPostsClient() {
     
 
     try {
-      const res = await fetch(`/api/posts/delete?postId=${postId}&email=${email}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/delete?postId=${postId}&email=${email}`, {
         method: "DELETE",
       });
 
@@ -170,7 +170,7 @@ export default function BookmarkedPostsClient() {
 
   const handleVote = async (postId, selectedOption) => {
     try {
-      const res = await fetch("/api/posts/voteuser", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/voteuser`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId, email, selectedOption }),
@@ -195,7 +195,7 @@ export default function BookmarkedPostsClient() {
 
   const handleLike = async (postId) => {
     try {
-      const res = await fetch("/api/posts/like", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId, userEmail: email }),
@@ -225,7 +225,7 @@ export default function BookmarkedPostsClient() {
 
   const handleBookmark = async (postId) => {
     try {
-      const res = await fetch("/api/posts/bookmarkToggle", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/bookmarkToggle`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ postId, userEmail: email, collectionName: activeCollection }),

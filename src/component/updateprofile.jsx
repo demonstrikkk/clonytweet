@@ -44,7 +44,7 @@ export default function UpdateProfileForm({ isOpen, onClose, initialData = {}, t
     setUpdated(false);
 
     try {
-      const res = await fetch("/api/updateProfile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/updateProfile`, {
         method: "POST",
         headers: { "Content-Type": "application/json" , ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {})},
         body: JSON.stringify(formData),

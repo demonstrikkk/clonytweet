@@ -85,7 +85,7 @@ useEffect(() => {
     const method = alreadyReacted ? "DELETE" : "POST";
 
     try {
-      const res = await fetch("/api/react-to-message", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/react-to-message`, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

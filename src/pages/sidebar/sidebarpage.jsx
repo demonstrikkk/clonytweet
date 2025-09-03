@@ -226,7 +226,7 @@ const handleSignOut = async () => {
 
         if (isSender) {
           if (seenEmails.length > 0) {
-            const profileRes = await fetch("/api/getUserProfiles", {
+            const profileRes = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ emails: seenEmails }),
@@ -252,7 +252,7 @@ const handleSignOut = async () => {
               [group.id]: "-- New messages --",
             }));
           } else {
-            const profileRes = await fetch("/api/getUserProfiles", {
+            const profileRes = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ emails: seenEmails }),
@@ -451,7 +451,7 @@ const handleSignOut = async () => {
     // enrich with user profiles
     const emails = data.map(c => c.peer_email);
     try {
-      const res = await fetch("/api/getUserProfiles", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -515,7 +515,7 @@ const handleSignOut = async () => {
       return;
     }
     const delay = setTimeout(async () => {
-      const res = await fetch(`/api/search-users?q=${searchTerm}&currentUserEmail=${currentUserEmail}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/search-users?q=${searchTerm}&currentUserEmail=${currentUserEmail}`);
       const data = await res.json();
       setSearchResults(data.users || []);
     }, 300);

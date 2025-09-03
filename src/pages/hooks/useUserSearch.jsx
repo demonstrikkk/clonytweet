@@ -10,7 +10,7 @@ export default function useUserSearch() {
     if (!query) return setResults([]);
     setLoading(true);
     try {
-      const res = await fetch(`/api/search?q=${query}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/search?q=${query}`);
       const data = await res.json();
       setResults(data);
     } catch (err) {

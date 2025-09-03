@@ -62,7 +62,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
     if (!clickedEmail || clickedEmail === email) return; // Avoid reloading own profile
 
     try {
-      const res = await fetch("/api/getUserProfiles", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails: [clickedEmail] }),
@@ -108,7 +108,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
       scheduledFor: scheduledDateTime,
     };
 
-    const res = await fetch("/api/schedule", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -127,8 +127,8 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
   const refreshPosts = async () => {
     const res = await fetch(
       activeTab === "following"
-        ? `/api/posts/following?viewer=${email}&skip=0&limit=${limit}`
-        : `/api/posts?viewer=${email}&skip=0&limit=${limit}`
+        ? `${import.meta.env.VITE_API_URL}/api/posts/following?viewer=${email}&skip=0&limit=${limit}`
+        : `${import.meta.env.VITE_API_URL}/api/posts?viewer=${email}&skip=0&limit=${limit}`
     );
     const data = await res.json();
     setPosts(data.posts || []);
@@ -138,7 +138,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
 
   const openBookmarkModal = async (postId) => {
     try {
-      const res = await fetch(`/api/posts/collections?userEmail=${email}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/collections?userEmail=${email}`);
       const data = await res.json();
 
       const uniqueCollections = Array.from(new Set(data.collections || []));
@@ -152,7 +152,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
   };
 
   const toggleLike = async (postId) => {
-    const res = await fetch('/api/posts/like', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/like`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId, userEmail: email, username: username }),
@@ -178,7 +178,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
     }
   };
   const toggleretweet = async (postId) => {
-    const res = await fetch('/api/posts/retweet', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/retweet`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId, userEmail: email, username: username }),
@@ -207,7 +207,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
 
   const toggleBookmark = async (postId, collectionName = 'default') => {
 
-    const res = await fetch('/api/posts/bookmarkToggle', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/bookmarkToggle`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId, userEmail: email, collectionName }),
@@ -241,7 +241,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
     }
 
     try {
-      const res = await fetch('/api/posts/bookmarkToggle', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/bookmarkToggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ postId, userEmail: email, collectionName }),
@@ -263,7 +263,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
         );
 
         // Refetch updated collections to prevent ghost re-add
-        const refresh = await fetch(`/api/posts/collections?userEmail=${email}`);
+        const refresh = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/collections?userEmail=${email}`);
         const refreshData = await refresh.json();
         setCollections(Array.from(new Set(refreshData.collections || [])));
 
@@ -317,8 +317,8 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
     try {
       const endpoint =
         activeTab === "following"
-          ? `/api/posts/following?viewer=${email}&skip=${skip}&limit=${limit}`
-          : `/api/posts?viewer=${email}&skip=${skip}&limit=${limit}`;
+          ? `${import.meta.env.VITE_API_URL}/api/posts/following?viewer=${email}&skip=${skip}&limit=${limit}`
+          : `${import.meta.env.VITE_API_URL}/api/posts?viewer=${email}&skip=${skip}&limit=${limit}`;
 
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -363,7 +363,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        await fetch('/api/scheduled-tasks/publish');  // Triggers the promotion
+        await fetch(`${import.meta.env.VITE_API_URL}/api/scheduled-tasks/publish`);  // Triggers the promotion
         await refreshPosts(); // Re-fetch updated posts
       } catch (err) {
         console.error('Failed to fetch/publish scheduled posts:', err);
@@ -428,7 +428,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
       formData.append("file", file);
 
       try {
-        const res = await fetch("/api/upload", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/upload`, {
           method: "POST",
           body: formData,
         });
@@ -481,7 +481,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
     };
 
     try {
-      const res = await fetch("/api/posts/create", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -903,7 +903,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
                 const hasPoll = post.content?.poll?.question && post.content?.poll?.options?.length > 0;
 
                 const handleVote = async (postId, selectedOption) => {
-                  const res = await fetch(`/api/posts/${postId}/vote`, {
+                  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/${postId}/vote`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userEmail: email, selectedOption }),

@@ -82,7 +82,7 @@ const handleOpenModal = async (type, data) => {
 
   try {
     const emails = data?.users || [];
-    const res = await fetch("/api/getUserProfiles", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ emails }),
@@ -106,7 +106,7 @@ const handleOpenModal = async (type, data) => {
    useEffect(() => {
      const fetchReposts = async () => {
        try {
-         const res = await fetch(`/api/repostsbyuser?email=${email}`);
+         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/repostsbyuser?email=${email}`);
          const data = await res.json();
          if (res.ok) {
            setReposts(data.reposts || []);
@@ -124,7 +124,7 @@ const handleOpenModal = async (type, data) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/posts/postsofemail?email=${email}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/postsofemail?email=${email}`);
         const data = await res.json();
         
         // Handle different response structures
@@ -152,7 +152,7 @@ const handleOpenModal = async (type, data) => {
   }, [email]);
 
   const handleLike = async (postId) => {
-    const res = await fetch('/api/posts/likeduser', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/likeduser`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ postId, userEmail: email }) })
@@ -165,7 +165,7 @@ const handleOpenModal = async (type, data) => {
     };
 
       const handleRetweet = async (postId) => {
-    const res = await fetch('/api/posts/retweetedprofile', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/retweetedprofile`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId, userEmail: email })
@@ -201,7 +201,7 @@ useEffect(() => {
     if (!session?.user?.email || !email) return;
   
     const checkFollowing = async () => {
-      const res = await fetch(`/api/user/${email}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${email}`);
       const data = await res.json();
       setIsFollowing(data.followers.users.includes(session.user.email));
     };
@@ -282,7 +282,7 @@ useEffect(() => {
                 <div className = "profile_editz">
               <button 
                onClick={async () => {
-                const res = await fetch('/api/followup/follow', {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/followup/follow`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({

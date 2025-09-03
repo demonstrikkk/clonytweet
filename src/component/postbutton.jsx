@@ -75,7 +75,7 @@ export default function Postbutton({ userrealname, username, avatar, email, show
     scheduledFor: scheduledDateTime,
   };
 
-  const res = await fetch("/api/schedule", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -143,7 +143,7 @@ const handleFileSelect = async (file) => {
     formData.append("file", file);
 
     try {
-      const res = await fetch("/api/upload", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -196,7 +196,7 @@ const handlePostClick = async () => {
   };
 
   try {
-    const res = await fetch("/api/posts/create", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

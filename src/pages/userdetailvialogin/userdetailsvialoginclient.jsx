@@ -41,7 +41,7 @@ useEffect(() => {
     if (!session?.user?.email) return;
 
     try {
-      const res = await fetch(`/api/users/verify?email=${encodeURIComponent(session.user.email)}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/verify?email=${encodeURIComponent(session.user.email)}`);
       const data = await res.json();
 
       if (res.ok && data.userExists && data.verified === true) {
@@ -63,7 +63,7 @@ useEffect(() => {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/users/create-user', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/create-user`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

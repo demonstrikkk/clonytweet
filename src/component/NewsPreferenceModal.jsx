@@ -24,7 +24,7 @@ export default function NewsPreferenceModal({ email, onClose }) {
   const save = async () => {
     setLoading(true);
     try {
-      await fetch("/api/news/savePreferences", {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/news/savePreferences`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, preferences: selected }),

@@ -20,7 +20,7 @@ const iconMap = {
 
 async function fetchUserProfile(email) {
   try {
-    const res = await fetch(`/api/userprofile?email=${email}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/userprofile?email=${email}`);
     const data = await res.json();
     return data.profile;
   } catch (err) {
@@ -41,7 +41,7 @@ export function NotificationPanel({ userEmail }) {
   useEffect(() => {
     async function fetchNotifications() {
       try {
-        const res = await fetch(`/api/notifications?userEmail=${userEmail}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications?userEmail=${userEmail}`);
         const data = await res.json();
         setNotifications(data.notifications || []);
       } catch (err) {
@@ -60,13 +60,13 @@ export function NotificationPanel({ userEmail }) {
 
   async function handleNotificationClick(notif) {
   try {
-    await fetch("/api/notifications/mark-read", {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/mark-read`, {
       method: "POST",
       body: JSON.stringify({ notificationId: notif._id }),
     });
 
     if (notif.type === "follow") {
-      const res = await fetch(`/api/userprofile?email=${notif.fromUserEmail}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/userprofile?email=${notif.fromUserEmail}`);
       const { profile } = await res.json();
 
       if (profile) {

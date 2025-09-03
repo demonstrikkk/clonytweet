@@ -45,7 +45,7 @@ const [postsCache, setPostsCache] = useState({});
 // Add function to fetch post data
 const fetchPostData = async (postId) => {
   try {
-    const res = await fetch(`/api/posts/byPostId?postId=${postId}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/byPostId?postId=${postId}`);
     const data = await res.json();
     if (data.post) {
       setPostsCache(prev => ({
@@ -81,7 +81,7 @@ const fetchPostData = async (postId) => {
     ];
  const fetchProfiles = async () => {
       try {
-        const res = await fetch("/api/getUserProfiles", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ emails: uniqueEmails }),

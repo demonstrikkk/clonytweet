@@ -11,7 +11,7 @@ export default function PostPopup({ postId }) {
     useEffect(() => {
         async function fetchPost() {
             try {
-                const res = await fetch(`/api/posts/byPostId?postId=${postId}`);
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/byPostId?postId=${postId}`);
                 const data = await res.json();
                 setPost(data.post);
             } catch (err) {
@@ -25,7 +25,7 @@ export default function PostPopup({ postId }) {
     }, [postId]);
     
     const handleLike = async (postId) => {
-       const res = await fetch('/api/posts/likeduser', {
+       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/likeduser`, {
            method: 'POST',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify({ postId, UserEmail: post.userEmail }) })

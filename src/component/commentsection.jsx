@@ -100,7 +100,7 @@ const toggleReplies = (commentId) => {
     setError(null);
     
     try {
-      const res = await fetch(`/api/posts/comments?postId=${postId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/comments?postId=${postId}`, {
      headers: {
           ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}),
         },
@@ -144,7 +144,7 @@ const toggleReplies = (commentId) => {
     
     try {
 
-const res = await fetch('/api/posts/comments', {
+const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/comments`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' , ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {})},
   body: JSON.stringify({
@@ -188,7 +188,7 @@ if (res.ok) {
   setError(null);
   
   try {
-    const res = await fetch('/api/posts/comments', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/comments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' , ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}) },
       body: JSON.stringify({
@@ -233,7 +233,7 @@ const toggleLike = useCallback(async (type, commentId, replyId = null) => {
   }
 
   try {
-    const res = await fetch('/api/posts/comments', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/comments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}) },
       body: JSON.stringify({

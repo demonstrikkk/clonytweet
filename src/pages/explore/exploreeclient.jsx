@@ -18,7 +18,7 @@ export function WhatsHappening({ onArticleSelect }) {
       const result = {};
       for (const tag of TABS) {
         try {
-          const res = await fetch(`/api/news/view?tag=${tag.toLowerCase()}`);
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/news/view?tag=${tag.toLowerCase()}`);
           const data = await res.json();
           result[tag] = data.slice(0, 2); // only first 2 items
         } catch (e) {
@@ -102,7 +102,7 @@ useEffect(() => {
 
   const checkPreferences = async () => {
     try {
-      const res = await fetch(`/api/news/checkPreferences?email=${userEmail}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/news/checkPreferences?email=${userEmail}`);
       const data = await res.json();
       if (!data.hasPreferences) setShowPrefModal(true);
     } catch (err) {
@@ -138,7 +138,7 @@ useEffect(() => {
 
 
       if (activeTab === 'For You' && userEmail) {
-  const prefCheckRes = await fetch(`/api/news/checkPreferences?email=${userEmail}`);
+  const prefCheckRes = await fetch(`${import.meta.env.VITE_API_URL}/api/news/checkPreferences?email=${userEmail}`);
   const { hasPreferences } = await prefCheckRes.json();
 
   if (!hasPreferences) {
@@ -150,7 +150,7 @@ useEffect(() => {
     if (Array.isArray(preferences) && preferences.length > 0) {
       const responses = await Promise.all(
         preferences.map(tag =>
-          fetch(`/api/news/fetch?tag=${tag}&userEmail=${userEmail}`).then(res => res.json())
+          fetch(`${import.meta.env.VITE_API_URL}/api/news/fetch?tag=${tag}&userEmail=${userEmail}`).then(res => res.json())
         )
       );
 
@@ -165,7 +165,7 @@ useEffect(() => {
 }
        else {
         // Default category view
-        const res = await fetch(`/api/news/view?tag=${activeTab.toLowerCase()}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/news/view?tag=${activeTab.toLowerCase()}`);
         newsData = await res.json();
       }
 

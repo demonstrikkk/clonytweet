@@ -4,7 +4,7 @@ export  function usePollVoting(userEmail, posts, setPosts) {
 
   const handleVote = async (postId, selectedOption) => {
     try {
-      const res = await fetch('/api/posts/voteuser', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/voteuser`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ postId, userEmail, selectedOption }),

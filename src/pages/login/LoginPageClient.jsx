@@ -46,7 +46,7 @@ export default function LoginPageClient() {
       setAuthInProgress(true);
 
       const email = encodeURIComponent(session.user.email);
-      const res = await fetch(`/api/users/verify?email=${email}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/verify?email=${email}`);
       const data = await res.json();
 
       navigate(data.success && data.verified ? "/sidebar" : "/userdetailvialogin");

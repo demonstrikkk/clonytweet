@@ -31,7 +31,7 @@ export default function useUserProfile() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/findall`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/findall`);
       if (!response.ok) throw new Error('Failed to fetch users');
       const result = await response.json();
       setData(result);
@@ -48,7 +48,7 @@ export default function useUserProfile() {
     setError(null);
     try {
       localStorage.setItem('email',email)
-      const response = await fetch(`/api/findfirst?email=${encodeURIComponent(email)}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/findfirst?email=${encodeURIComponent(email)}`);
 
       if (!response.ok) throw new Error('Failed to fetch user');
       const result = await response.json();
@@ -66,7 +66,7 @@ export default function useUserProfile() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/save', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/save`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
@@ -91,7 +91,7 @@ export default function useUserProfile() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/update`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: userId, ...updateData }),
@@ -111,7 +111,7 @@ export default function useUserProfile() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/delete`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/delete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: userId }),

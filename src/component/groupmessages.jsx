@@ -51,7 +51,7 @@ useEffect(() => {
 
   const fetchProfiles = async () => {
     try {
-      const res = await fetch("/api/getUserProfiles", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails: uniqueEmails }),
@@ -104,7 +104,7 @@ useEffect(() => {
     );
     const method = alreadyReacted ? "DELETE" : "POST";
     try {
-      await fetch("/api/react-to-message-group", {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/react-to-message-group`, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

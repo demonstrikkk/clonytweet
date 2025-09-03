@@ -81,7 +81,7 @@ useEffect(() => {
 
   const fetchProfiles = async () => {
     try {
-      const res = await fetch("/api/getUserProfiles", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails: Array.from(emailSet) }),

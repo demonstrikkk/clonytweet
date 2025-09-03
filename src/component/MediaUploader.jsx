@@ -32,7 +32,7 @@ export default function MediaUploader({ onUploadComplete, onClose }) {
     formData.append('file', file);
 
     try {
-      const response = await fetch('/api/upload-media', { method: 'POST', body: formData });
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/upload-media`, { method: 'POST', body: formData });
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.error || 'Upload failed');

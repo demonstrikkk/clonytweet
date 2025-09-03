@@ -58,7 +58,7 @@ const handleOpenModal = async (type, data) => {
 
   try {
     const emails = data?.users || [];
-    const res = await fetch("/api/getUserProfiles", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ emails }),
@@ -84,7 +84,7 @@ const handleOpenModal = async (type, data) => {
 
 const fetchScheduledPosts = async () => {
   try {
-    const res = await fetch(`/api/scheduledposts/user?email=${email}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/scheduledposts/user?email=${email}`);
     const data = await res.json();
 
     if (res.ok && data.scheduleposts) {
@@ -101,7 +101,7 @@ const fetchScheduledPosts = async () => {
 const handleScheduledDelete = async (postId) => {
 
   try {
-    const res = await fetch(`/api/schedule?id=${postId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule?id=${postId}`, {
       method: "DELETE",
     });
 
@@ -125,7 +125,7 @@ useEffect(() => {
 useEffect(() => {
   const fetchReposts = async () => {
     try {
-      const res = await fetch(`/api/repostsbyuser?email=${email}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/repostsbyuser?email=${email}`);
       const data = await res.json();
       if (res.ok) {
         setReposts(data.reposts || []);
@@ -164,7 +164,7 @@ useEffect(() => {
     try {
       // Ensure loader stays at least 1.5 seconds
       const delay = new Promise(resolve => setTimeout(resolve, 1500));
-      const response = fetch(`/api/posts/postsofemail?email=${email}`);
+      const response = fetch(`${import.meta.env.VITE_API_URL}/api/posts/postsofemail?email=${email}`);
       const [res] = await Promise.all([response, delay]);
 
       const data = await res.json();
@@ -196,13 +196,13 @@ const handleDeletePost = async (postId) => {
  
 
   try {
-    const res = await fetch(`/api/posts/delete?postId=${postId}&email=${email}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/delete?postId=${postId}&email=${email}`, {
       method: 'DELETE',
     });
 
     if (res.ok) {
       // Refetch posts
-      const updated = await fetch(`/api/posts/postsofemail?email=${email}`);
+      const updated = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/postsofemail?email=${email}`);
       const data = await updated.json();
       setPosts(data.posts || []);
     } else {
@@ -215,7 +215,7 @@ const handleDeletePost = async (postId) => {
 
 
 const handleLike = async (postId) => {
-    const res = await fetch('/api/posts/likeduser', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/likeduser`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId, userEmail: email }) })
@@ -229,7 +229,7 @@ const handleLike = async (postId) => {
 
 
   const handleRetweet = async (postId) => {
-    const res = await fetch('/api/posts/retweetedprofile', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/retweetedprofile`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId, userEmail: email })

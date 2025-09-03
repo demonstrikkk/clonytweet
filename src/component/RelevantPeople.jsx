@@ -29,14 +29,14 @@ const RelevantPeople = ({ setSelectedUser }) => {
   // Fetch all people and their follow status
   useEffect(() => {
     const fetchPeople = async () => {
-      const res = await fetch("/api/relevantpeople");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/relevantpeople`);
       const data = await res.json();
       setPeople(data);
 
       // Fetch follow status for each user
       const statuses = {};
       for (const person of data) {
-        const res2 = await fetch(`/api/user/${person.email}`);
+        const res2 = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${person.email}`);
         const personData = await res2.json();
         statuses[person.email] = personData?.followers?.users?.includes(session?.user?.email);
       }
@@ -50,7 +50,7 @@ const RelevantPeople = ({ setSelectedUser }) => {
 
   // Toggle follow/unfollow
   const handleFollowToggle = async (targetEmail) => {
-    const res = await fetch('/api/followup/follow', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/followup/follow`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

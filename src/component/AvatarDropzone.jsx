@@ -11,7 +11,7 @@ export default function AvatarDropzone({ onUpload, currentImage }) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("/api/UploadAvatar", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/UploadAvatar`, {
       method: "POST",
       body: formData,
     });

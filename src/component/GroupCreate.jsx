@@ -38,7 +38,7 @@ export default function GroupCreate({ onGroupCreated, onClose, searchTerm, setSe
       return;
     }
     const delay = setTimeout(async () => {
-      const res = await fetch(`/api/search-users?q=${searchTerm}&currentUserEmail=${currentUserEmail}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/search-users?q=${searchTerm}&currentUserEmail=${currentUserEmail}`);
       const data = await res.json();
       setSearchResults(data.users || []);
     }, 300);

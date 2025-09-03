@@ -79,7 +79,7 @@ useEffect(() => {
   }
 
   const delay = setTimeout(async () => {
-    const res = await fetch(`/api/search-users?q=${searchTerm}&currentUserEmail=${currentUserEmail}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/search-users?q=${searchTerm}&currentUserEmail=${currentUserEmail}`);
     const data = await res.json();
     const existingEmails = initialMembers.map(m => m.user_email);
     const filtered = (data.users || []).filter(u => !existingEmails.includes(u.email));
@@ -138,7 +138,7 @@ useEffect(() => {
 
   const fetchProfiles = async () => {
     try {
-      const res = await fetch("/api/getUserProfiles", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/getUserProfiles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails: uniqueEmails }),

@@ -32,7 +32,7 @@ export default function MediaGroupUploader({ onUploadComplete, onClose }) {
     formData.append('file', file);
 
     try {
-      const response = await fetch('/api/media-group-uploader', { method: 'POST', body: formData });
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/media-group-uploader`, { method: 'POST', body: formData });
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.error || 'Upload failed');
