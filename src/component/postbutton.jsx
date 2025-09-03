@@ -20,7 +20,7 @@ import MediaUpload from './mediaupload';
 import GiphySearch from './gifupload';
 import Poll from './poll';
 import StaticPollPreview from './StaticPoll';
-const EmojiPicker = lazy(() => import("./emojiupload"));
+const EmojiPicker = React.lazy(() => import("./emojiupload"));
 
 export default function Postbutton({ userrealname, username, avatar, email, showpostbutton, setshowpostbutton }) {
   const [inputText, setInputText] = useState('');

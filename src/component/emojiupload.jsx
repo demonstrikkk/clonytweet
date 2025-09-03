@@ -4,7 +4,7 @@
 "use client";
 import React, { useRef } from 'react';
 import  { lazy, Suspense } from 'react';
-const Picker = lazy(() => import('emoji-picker-react'));
+const Picker = React.lazy(() => import('emoji-picker-react'));
 const EmojiPicker = ({ onEmojiClick, onEmojiSelect }) => {
   const pickerRef = useRef(null);
 

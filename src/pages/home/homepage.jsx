@@ -5,7 +5,7 @@ import MediaUpload from '../../component/mediaupload';
 import React, {  lazy, Suspense } from 'react';
 import GiphySearch from '../../component/gifupload';
 import Poll from '../../component/poll';
-const EmojiPicker = lazy(() => import("../../component/emojiupload"), { ssr: false });
+const EmojiPicker = React.lazy(() => import("../../component/emojiupload"), { ssr: false });
 import StaticPollPreview from '../../component/StaticPoll';
 import CommentSection from '../../component/commentsection';
 import { SkeletonPost } from '../../component/skeletionpost';

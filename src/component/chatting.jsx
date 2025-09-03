@@ -13,7 +13,7 @@ import GifSearch from "./gifupload";
 import MediaUploader from "./MediaUploader";
 
 
-const EmojiPicker = lazy(() => import("emoji-picker-react"));
+const EmojiPicker = React.lazy(() => import("emoji-picker-react"));
 
 function generateChatId(a, b) {
   return [a, b].sort().join("-");

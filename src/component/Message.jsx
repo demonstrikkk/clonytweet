@@ -11,7 +11,7 @@ import PostCard from "./post-card";
 import PostPopup from "./PostPopup";
 import React, {  lazy } from 'react';
 
-const EmojiPicker = lazy(() => import("emoji-picker-react"));
+const EmojiPicker = React.lazy(() => import("emoji-picker-react"));
 
 export default function Message({
   message,

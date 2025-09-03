@@ -9,7 +9,7 @@ import ReplyPreview from "./ReplyPreview";
 import MediaUploader from "./MediaUploader";
 import GifSearch from "./gifupload";
 import GroupInfoPanel from "./groupinfopanel";
-const EmojiPicker = lazy(() => import("emoji-picker-react"));
+const EmojiPicker = React.lazy(() => import("emoji-picker-react"));
 
 export function GroupChatBox({ groupId, onClose ,onStatusTextUpdate , onNewMessage  }) {
   // const { data: session } = useSession();
