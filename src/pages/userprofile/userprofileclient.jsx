@@ -2,7 +2,7 @@
 // app/component/page.js
 "use client";
 import { useEffect, useState } from 'react';
-import { getDisplayName } from "next/dist/shared/lib/utils";
+// import { getDisplayName } from "next/dist/shared/lib/utils";
 import { React } from "react";
 import PostCard from "../../component/post-card";
 import UpdateProfileForm from "../../component/updateprofile";
@@ -11,39 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClientbrowser';
 import { usePollVoting } from '../../component/pollvoting';
-// export  function usePollVoting(userEmail, posts , setPosts) {
-//   const [userSelectedOption, setUserSelectedOption] = useState({}); // keyed by postId
-   
-//   const handleVote = async (postId, selectedOption) => {
-//     try {
-//       const res = await fetch('/api/posts/voteuser', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ postId, userEmail, selectedOption }),
-//       });
-
-//       const data = await res.json();
-
-//       if (res.ok) {
-//         setPosts(prev =>
-//           prev.map(p =>
-//             p.postId === postId
-//               ? { ...p, content: { ...p.content, poll: data.post.content.poll } }
-//               : p
-//           )
-//         );
-
-//         setUserSelectedOption(prev => ({ ...prev, [postId]: selectedOption }));
-//       } else {
-//         console.error(data.error);
-//       }
-//     } catch (err) {
-//       console.error("Voting error:", err);
-//     }
-//   };
-  
-//   return { handleVote, userSelectedOption };
-// }
 
 
 
