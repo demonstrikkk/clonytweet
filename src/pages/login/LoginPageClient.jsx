@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "../../lib/supabaseClientbrowser";
 
@@ -78,12 +78,30 @@ export default function LoginPageClient() {
   }
 
   return (
-    <div >
-      {/* Background animations can be here */}
-
+    <div className="relative h-screen w-full bg-gradient-to-br from-black via-slate-800 to-black flex items-center justify-center overflow-hidden">
+      {/* Background animations */} 
+    
       <motion.div
-       
-      >
+        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-purple-600 opacity-30 blur-3xl"
+        animate={{ scale: [1, 1.1, 1], opacity: [0.25, 0.35, 0.25] }}
+        transition={{ duration: 6, repeat: Infinity }}
+      /> 
+      <motion.div
+        className="absolute -bottom-20 -right-20 w-[400px] h-[400px] rounded-full bg-blue-500 opacity-30 blur-2xl"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.4, 0.3] }}
+        transition={{ duration: 7, repeat: Infinity }}
+      />
+
+
+
+
+      {/* Login box */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="z-10 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl shadow-xl p-10 w-full max-w-md flex flex-col items-center"
+      > 
         <h1 className="text-4xl font-bold text-white mb-4">Welcome Back</h1>
         <p className="text-gray-300 mb-6">Sign in to access your world</p>
 
@@ -91,6 +109,7 @@ export default function LoginPageClient() {
           <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
         )}
 
+        {/* OAuth buttons */}
         <div className="flex gap-4 w-full mb-6">
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -99,7 +118,6 @@ export default function LoginPageClient() {
             disabled={authInProgress}
             className="flex-1 size8 bg-[#24292F] hover:bg-[#1a1f24] text-white py-3 rounded-lg flex items-center justify-center gap-3 transition-colors disabled:opacity-50"
           >
-            {/* GitHub SVG */}
             <svg
               className="w-5 h-5"
               aria-hidden="true"
@@ -110,7 +128,7 @@ export default function LoginPageClient() {
             </svg>
             GitHub
           </motion.button>
-
+          
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -118,7 +136,6 @@ export default function LoginPageClient() {
             disabled={authInProgress}
             className="flex-1 size8 bg-[#4285F4] hover:bg-[#3367D6] text-white py-3 rounded-lg flex items-center justify-center gap-3 transition-colors disabled:opacity-50"
           >
-            {/* Google SVG */}
             <svg
               className="w-5 h-5"
               aria-hidden="true"
@@ -134,7 +151,6 @@ export default function LoginPageClient() {
     </div>
   );
 }
-
 
 // "use client";
 
