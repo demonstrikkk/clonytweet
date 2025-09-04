@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express from "express";
 import cors from "cors";
 import fs from "fs";
@@ -35,5 +36,5 @@ function loadRoutes(dir, baseRoute = "") {
 
 loadRoutes(routesPath);
 
-const PORT = import.meta.process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));
