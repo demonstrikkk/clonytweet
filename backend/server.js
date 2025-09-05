@@ -11,7 +11,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin:   'http://localhost:5173', // your frontend URL
+  methods: ['GET','POST','PUT','DELETE'], // allowed HTTP methods
+  credentials: true // if you want to allow cookies or auth headers
+}));
 app.use(express.json());
 
 // Path to your "api" folder

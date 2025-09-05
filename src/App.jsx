@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "./lib/supabaseClientbrowser";
+import { supabase } from "./lib/supabaseClientbrowser.js";
 import { Outlet, Navigate } from "react-router-dom";
 
 export default function App() {
