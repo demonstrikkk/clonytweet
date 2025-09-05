@@ -2,7 +2,7 @@
 import { Router } from "express";
 import dbConnect from "../../../src/lib/dBconnect.js";
 import UserProfile from "../../../src/lib/models/UserProfile.js";
-import redis from "../../src/lib/redis.js";
+import redis from "../../../src/lib/redis.js";
 import { invalidateCache } from "../../../src/lib/cacheInvalidator.js";
 
 const router = Router();

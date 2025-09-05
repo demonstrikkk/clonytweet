@@ -4,6 +4,7 @@ import cors from "cors";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
+import 'dotenv/config'; // loads .env automatically
 
 // ESM __dirname fix
 const __filename = fileURLToPath(import.meta.url);
@@ -13,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Point to your "api" folder instead of "routes"
+// Path to your "api" folder
 const routesPath = path.join(__dirname, "api");
 
 function loadRoutes(dir, baseRoute = "") {
@@ -24,17 +25,29 @@ function loadRoutes(dir, baseRoute = "") {
     if (stat.isDirectory()) {
       loadRoutes(fullPath, `${baseRoute}/${file}`);
     } else if (file === "route.js") {
-      // ✅ Import with file:// for ESM compatibility
-      import(pathToFileURL(fullPath).href).then((module) => {
-        const routePath = baseRoute || "/";
-        app.use(`/api${routePath}`, module.default);
-        console.log(`Loaded route: /api${routePath}`);
-      });
+      import(pathToFileURL(fullPath).href)
+        .then((module) => {
+          const route = module.default;
+          const routePath = baseRoute || "/";
+
+          if (!route || typeof route !== "function") {
+            console.warn(`⚠️ Route at ${fullPath} is not a valid Express router`);
+            return;
+          }
+
+          app.use(`/api${routePath}`, route);
+          console.log(`✅ Loaded route: /api${routePath}`);
+        })
+        .catch((err) => {
+          console.error(`❌ Failed to load route at ${fullPath}:`, err);
+        });
     }
   });
 }
 
+// Load all routes
 loadRoutes(routesPath);
 
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));

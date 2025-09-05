@@ -1,5 +1,5 @@
-import { Notification } from "./models/Notification";
-import dbConnect from "./dBconnect";
+import { Notification } from "./models/Notification.js";
+import dbConnect from "./dBconnect.js";
 
 
 

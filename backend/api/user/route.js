@@ -1,7 +1,7 @@
 // server/routes/getUser.js
 import express from 'express';
-import dbConnect from '../../../../src/lib/dBconnect.js';
-import UserProfile from '../../../../src/lib/models/UserProfile.js';
+import dbConnect from '../../../src/lib/dBconnect.js';
+import UserProfile from '../../../src/lib/models/UserProfile.js';
 
 const router = express.Router();
 

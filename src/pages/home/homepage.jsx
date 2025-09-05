@@ -903,7 +903,7 @@ export default function Section2ContentHome({ userrealname, username, avatar, em
                 const hasPoll = post.content?.poll?.question && post.content?.poll?.options?.length > 0;
 
                 const handleVote = async (postId, selectedOption) => {
-                  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/${postId}/vote`, {
+                  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/vote`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userEmail: email, selectedOption }),

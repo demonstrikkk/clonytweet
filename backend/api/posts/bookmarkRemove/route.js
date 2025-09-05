@@ -38,8 +38,8 @@
 
 import express from "express";
 
-import { Post } from "../../../../src/lib/models/Post";
-import dbConnect from "../../../../src/lib/dBconnect";
+import { Post } from "../../../../src/lib/models/Post.js";
+import dbConnect from "../../../../src/lib/dBconnect.js";
 
 const router = express.Router();
 

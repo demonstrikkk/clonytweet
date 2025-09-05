@@ -2,7 +2,7 @@
 import express from "express";
 import dbConnect from "../../../../src/lib/dBconnect.js";
 import { Post } from "../../../../src/lib/models/Post.js";
-import UserProfile from "../models/UserProfile.js";
+import UserProfile from "../../../../src/lib/models/UserProfile.js";
 
 const router = express.Router();
 

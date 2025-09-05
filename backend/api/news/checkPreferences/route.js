@@ -1,7 +1,7 @@
 import { Router } from "express";
-import dbConnect from "../../../../src/lib/dBconnect";
-import { NewsCache } from "../../../src/lib/models/NewsCache";
-import UserProfile from "../../../../src/lib/models/UserProfile";
+import dbConnect from "../../../../src/lib/dBconnect.js";
+import { NewsCache } from "../../../../src/lib/models/NewsCache.js";
+import UserProfile from "../../../../src/lib/models/UserProfile.js";
 
 const router = Router();
 

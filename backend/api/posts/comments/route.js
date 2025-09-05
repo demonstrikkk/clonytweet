@@ -3,7 +3,7 @@ import express from "express";
 import dbConnect from "../../../../src/lib/dBconnect.js";
 import { Post } from "../../../../src/lib/models/Post.js";
 import { createNotification } from "../../../../src/lib/createNotification.js";
-import { supabase } from "../lib/supabaseClient.js";
+import { supabase } from "../../../../src/lib/supabaseClient.js";
 import crypto from "crypto";
 
 const router = express.Router();

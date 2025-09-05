@@ -3,12 +3,13 @@ import { Router } from "express";
 import multer from "multer";
 import { createClient } from "@supabase/supabase-js";
 
+
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 // ✅ Supabase admin client
 const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL || "",
+  import.meta.env.VITE_SUPABASE_URL || "",
   process.env.SUPABASE_SERVICE_ROLE_KEY || "" // Service Role Key
 );
 

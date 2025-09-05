@@ -1,9 +1,11 @@
+/* eslint-disable no-undef */
+ 
 // lib/mongodb.js
 import { MongoClient } from "mongodb";
 
 
 
-const uri = import.meta.env.VITE_MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 const options = {};
 
 let client;

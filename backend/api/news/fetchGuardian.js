@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+ 
 import { CACHE_EXPIRY_HOURS_GENERAL, CACHE_EXPIRY_HOURS_PERSONALIZED } from "../../../src/lib/constants.js";
 import dbConnect from "../../../src/lib/dBconnect.js";
 import { NewsCache } from "../../../src/lib/models/NewsCache.js";
@@ -6,7 +6,7 @@ import UserProfile from "../../../src/lib/models/UserProfile.js";
 import redis from "../../../src/lib/redis.js";
 
 // ✅ Load API key from environment (Render will inject it)
-const GUARDIAN_API_KEY = process.env.VITE_NEWS_API_KEY;
+const GUARDIAN_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
 // Fetch fresh news from The Guardian API
 async function fetchGuardianNews(tag, userEmail = null) {

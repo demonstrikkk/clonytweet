@@ -1,7 +1,7 @@
 // server/routes/postsByUser.js
 import express from 'express';
-import dbConnect from '../../../../../src/lib/dBconnect.js';
-import { Post } from '../../../../../src/lib/models/Post.js';
+import dbConnect from '../../../../src/lib/dBconnect.js';
+import { Post } from '../../../../src/lib/models/Post.js';
 
 const router = express.Router();
 

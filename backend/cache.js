@@ -1,4 +1,4 @@
-import redis from './redis';
+import redis from '../src/lib/redis';
 
 /**
  * @param {string} key - The Redis key to store the cache under

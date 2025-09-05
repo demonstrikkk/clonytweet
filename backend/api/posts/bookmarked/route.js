@@ -1,9 +1,9 @@
 // routes/bookmarks.js
 
 import express from "express";
-import { Post } from "../../../../src/lib/models/Post";
-import UserProfile from "../../../../src/lib/models/UserProfile"; // Assuming this is your user model
-import dbConnect from "../../../../src/lib/dBconnect";
+import { Post } from "../../../../src/lib/models/Post.js";
+import UserProfile from "../../../../src/lib/models/UserProfile.js"; // Assuming this is your user model
+import dbConnect from "../../../../src/lib/dBconnect.js";
 
 const router = express.Router();
 

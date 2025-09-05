@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { Post } from "../../../../../src/lib/models/Post.js";
-import UserProfile from "../../../../../src/lib/models/UserProfile.js";
+import { Post } from "../../../../src/lib/models/Post.js";
+import UserProfile from "../../../../src/lib/models/UserProfile.js";
 
 const router = Router();
 
-// ✅ POST /api/posts/:postId/vote
-router.post("/:postId/vote", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { postId } = req.params; // Express handles route params
     const { userEmail, selectedOption } = req.body;

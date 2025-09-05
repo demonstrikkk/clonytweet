@@ -1,4 +1,4 @@
-import redis from "./redis";
+ import redis from "./redis.js";
 
 export async function invalidateCache(key) {
   try {
@@ -7,3 +7,7 @@ export async function invalidateCache(key) {
     console.error("Cache invalidation error:", err);
   }
 }
+
+
+
+
