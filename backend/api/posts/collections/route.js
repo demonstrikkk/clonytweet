@@ -1,28 +1,70 @@
+// routes/getCollections.js
+import express from "express";
+import { Post } from "../../../../src/lib/models/Post.js";
+import dbConnect from "../../../../src/lib/dBconnect.js";
+
+const router = express.Router();
+
 // GET /api/posts/collections?userEmail=...
-import { Post } from "../../../src/lib/models/Post";
-import dbConnect from "../../../src/lib/dBconnect";
+router.get("/", async (req, res) => {
+  try {
+    const { userEmail } = req.query;
 
+    if (!userEmail) {
+      return res.status(400).json({ error: "Missing email" });
+    }
 
-export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-  const userEmail = searchParams.get("userEmail");
+    await dbConnect();
 
-  if (!userEmail) return new Response("Missing email", { status: 400 });
+    const posts = await Post.find({ "bookmarks.users": userEmail }).lean();
 
-  await dbConnect();
-  const posts = await Post.find({ "bookmarks.users": userEmail }).lean();
+    const collectionSet = new Set();
 
-  const collectionSet = new Set();
-
-  posts.forEach(post => {
-    post.bookmarks.forEach(b => {
-      if (b.users.includes(userEmail)) {
-        collectionSet.add(b.collectionName || 'Default');
-      }
+    posts.forEach((post) => {
+      post.bookmarks.forEach((b) => {
+        if (b.users.includes(userEmail)) {
+          collectionSet.add(b.collectionName || "Default");
+        }
+      });
     });
-  });
 
-  return new Response(JSON.stringify({
-    collections: [...collectionSet]
-  }), { status: 200 });
-}
+    return res.status(200).json({ collections: [...collectionSet] });
+  } catch (err) {
+    console.error("Error in GET /api/posts/collections:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+export default router;
+
+
+
+
+// // GET /api/posts/collections?userEmail=...
+// import { Post } from "../../../src/lib/models/Post";
+// import dbConnect from "../../../src/lib/dBconnect";
+
+
+// export async function GET(req) {
+//   const { searchParams } = new URL(req.url);
+//   const userEmail = searchParams.get("userEmail");
+
+//   if (!userEmail) return new Response("Missing email", { status: 400 });
+
+//   await dbConnect();
+//   const posts = await Post.find({ "bookmarks.users": userEmail }).lean();
+
+//   const collectionSet = new Set();
+
+//   posts.forEach(post => {
+//     post.bookmarks.forEach(b => {
+//       if (b.users.includes(userEmail)) {
+//         collectionSet.add(b.collectionName || 'Default');
+//       }
+//     });
+//   });
+
+//   return new Response(JSON.stringify({
+//     collections: [...collectionSet]
+//   }), { status: 200 });
+// }

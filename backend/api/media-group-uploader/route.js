@@ -1,48 +1,99 @@
+/* eslint-disable no-undef */
+import { Router } from "express";
+import multer from "multer";
+import { createClient } from "@supabase/supabase-js";
 
-import { createClient } from '@supabase/supabase-js';
-import { NextResponse } from 'next/server';
+const router = Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-
-
-// Initialize the admin client for secure server-side operations
+// ✅ Supabase admin client
 const supabaseAdmin = createClient(
-  import.meta.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '' // Use the Service Role Key here
+  process.env.SUPABASE_URL || "",
+  process.env.SUPABASE_SERVICE_ROLE_KEY || "" // Service Role Key
 );
 
-export async function POST(request) {
+// ✅ POST /upload
+router.post("/", upload.single("file"), async (req, res) => {
   try {
-    const formData = await request.formData();
-    const file = formData.get('file');
+    const file = req.file;
 
     if (!file) {
-      return NextResponse.json({ error: 'No file provided.' }, { status: 400 });
+      return res.status(400).json({ error: "No file provided." });
     }
 
-    const fileExtension = file.name.split('.').pop();
+    const fileExtension = file.originalname.split(".").pop();
     const fileName = `${Date.now()}.${fileExtension}`;
     const filePath = `public/${fileName}`;
 
-    // Upload file to Supabase Storage
+    // Upload to Supabase Storage
     const { error: uploadError } = await supabaseAdmin.storage
-      .from('group-images') // The bucket name we created
-      .upload(filePath, file);
+      .from("group-images") // bucket name
+      .upload(filePath, file.buffer, {
+        contentType: file.mimetype,
+      });
 
-    if (uploadError) {
-      throw uploadError;
-    }
+    if (uploadError) throw uploadError;
 
-    // Get the public URL of the uploaded file
+    // Get public URL
     const { data } = supabaseAdmin.storage
-      .from('group-images')
+      .from("group-images")
       .getPublicUrl(filePath);
 
-    return NextResponse.json({ publicUrl: data.publicUrl });
-
+    return res.status(200).json({ publicUrl: data.publicUrl });
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to upload media.', details: error.message },
-      { status: 500 }
-    );
+    return res.status(500).json({
+      error: "Failed to upload media.",
+      details: error.message,
+    });
   }
-}
+});
+
+export default router;
+
+// import { createClient } from '@supabase/supabase-js';
+// import { NextResponse } from 'next/server';
+
+
+
+// // Initialize the admin client for secure server-side operations
+// const supabaseAdmin = createClient(
+//   import.meta.env.NEXT_PUBLIC_SUPABASE_URL || '',
+//   import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '' // Use the Service Role Key here
+// );
+
+// export async function POST(request) {
+//   try {
+//     const formData = await request.formData();
+//     const file = formData.get('file');
+
+//     if (!file) {
+//       return NextResponse.json({ error: 'No file provided.' }, { status: 400 });
+//     }
+
+//     const fileExtension = file.name.split('.').pop();
+//     const fileName = `${Date.now()}.${fileExtension}`;
+//     const filePath = `public/${fileName}`;
+
+//     // Upload file to Supabase Storage
+//     const { error: uploadError } = await supabaseAdmin.storage
+//       .from('group-images') // The bucket name we created
+//       .upload(filePath, file);
+
+//     if (uploadError) {
+//       throw uploadError;
+//     }
+
+//     // Get the public URL of the uploaded file
+//     const { data } = supabaseAdmin.storage
+//       .from('group-images')
+//       .getPublicUrl(filePath);
+
+//     return NextResponse.json({ publicUrl: data.publicUrl });
+
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: 'Failed to upload media.', details: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }

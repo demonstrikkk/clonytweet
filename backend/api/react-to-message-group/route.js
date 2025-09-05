@@ -1,39 +1,43 @@
-import { NextResponse } from 'next/server';
-import { supabase } from '../../src/lib/supabaseClient';
+// server/routes/groupMessageReactions.js
+import express from 'express';
+import { supabase } from '../../../src/lib/supabaseClient.js';
 
+const router = express.Router();
 
-export async function POST(req) {
+// POST /api/group-message-reactions
+router.post('/', async (req, res) => {
   try {
-    const body = await req.json();
-    const { message_id, emoji, user_email } = body;
+    const { message_id, emoji, user_email } = req.body;
 
     if (!message_id || !emoji || !user_email) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+      return res.status(400).json({ error: 'Missing fields' });
     }
 
-    const { error } = await supabase.from('group_message_reactions').upsert(
-      { message_id, emoji, user_email },
-    //   { onConflict: ['message_id','user_email', 'emoji'] }
-    );
+    const { error } = await supabase
+      .from('group_message_reactions')
+      .upsert(
+        { message_id, emoji, user_email },
+        // { onConflict: ['message_id', 'user_email', 'emoji'] } // optional unique constraint
+      );
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return res.status(500).json({ error: error.message });
     }
 
-    return NextResponse.json({ success: true });
+    res.json({ success: true });
   } catch (err) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
-}
+});
 
-// DELETE
-export async function DELETE(req) {
+// DELETE /api/group-message-reactions
+router.delete('/', async (req, res) => {
   try {
-    const body = await req.json();
-    const { message_id, emoji, user_email } = body;
+    const { message_id, emoji, user_email } = req.body;
 
     if (!message_id || !emoji || !user_email) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+      return res.status(400).json({ error: 'Missing fields' });
     }
 
     const { error } = await supabase
@@ -42,11 +46,69 @@ export async function DELETE(req) {
       .match({ message_id, emoji, user_email });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return res.status(500).json({ error: error.message });
     }
 
-    return NextResponse.json({ success: true });
+    res.json({ success: true });
   } catch (err) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
-}
+});
+
+export default router;
+
+
+
+// import { NextResponse } from 'next/server';
+// import { supabase } from '../../src/lib/supabaseClient';
+
+
+// export async function POST(req) {
+//   try {
+//     const body = await req.json();
+//     const { message_id, emoji, user_email } = body;
+
+//     if (!message_id || !emoji || !user_email) {
+//       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+//     }
+
+//     const { error } = await supabase.from('group_message_reactions').upsert(
+//       { message_id, emoji, user_email },
+//     //   { onConflict: ['message_id','user_email', 'emoji'] }
+//     );
+
+//     if (error) {
+//       return NextResponse.json({ error: error.message }, { status: 500 });
+//     }
+
+//     return NextResponse.json({ success: true });
+//   } catch (err) {
+//     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+//   }
+// }
+
+// // DELETE
+// export async function DELETE(req) {
+//   try {
+//     const body = await req.json();
+//     const { message_id, emoji, user_email } = body;
+
+//     if (!message_id || !emoji || !user_email) {
+//       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+//     }
+
+//     const { error } = await supabase
+//       .from('group_message_reactions')
+//       .delete()
+//       .match({ message_id, emoji, user_email });
+
+//     if (error) {
+//       return NextResponse.json({ error: error.message }, { status: 500 });
+//     }
+
+//     return NextResponse.json({ success: true });
+//   } catch (err) {
+//     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+//   }
+// }
