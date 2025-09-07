@@ -23,7 +23,7 @@ app.use(cors());
 // OR restrict to frontend URL only:
 app.use(
   cors({
-    origin: ["https://localhost:5173", "https://clonytweet-three.vercel.app"],
+    origin: ["http://localhost:5173", "https://clonytweet-three.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
