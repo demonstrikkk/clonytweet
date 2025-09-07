@@ -80,7 +80,6 @@ export default function LoginPageClient() {
   return (
     <div className="relative h-screen w-full bg-gradient-to-br from-black via-slate-800 to-black flex items-center justify-center overflow-hidden">
       {/* Background animations */} 
-      <div className="text-white ">reddbrown</div>
     
       <motion.div
         className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-purple-600 opacity-30 blur-3xl"

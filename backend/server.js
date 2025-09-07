@@ -13,8 +13,22 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // ✅ Allow all origins, all methods, all headers
-// This already covers OPTIONS requests automatically
+
+
+
+
+// Allow all origins (for dev)
 app.use(cors());
+
+// OR restrict to frontend URL only:
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://your-frontend-domain.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 
 
 app.use(express.json());
