@@ -13,8 +13,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // ✅ Allow all origins, all methods, all headers
+// This already covers OPTIONS requests automatically
 app.use(cors());
-app.options("*", cors()); // Handle preflight requests
+
 
 app.use(express.json());
 
